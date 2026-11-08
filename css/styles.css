@@ -1,0 +1,118 @@
+/* Línea visual basada en el UI Kit de PetCare (Figma): Plus Jakarta Sans, primario #8B67E5,
+   tarjetas blancas redondeadas sobre fondo #F6F8FA, texto #0D0D12 / #666D80. Adaptado a web de escritorio y responsive. */
+:root{
+  --primario:#8b67e5;--primario-700:#6f4fd1;--primario-50:#f3f0fc;--primario-100:#e7defb;
+  --texto:#0d0d12;--texto-2:#666d80;--texto-3:#818898;--borde:#e4e7ec;--fondo:#f6f8fa;--blanco:#fff;
+  --amarillo:#ffbe4c;--ok:#1a9e5c;--ok-50:#e9f8f0;--warn:#b7791f;--warn-50:#fff6e5;--err:#df1c41;--err-50:#fdeaee;
+  --radio:16px;--radio-sm:12px;--sombra:0 1px 2px rgba(13,13,18,.06),0 4px 16px rgba(13,13,18,.04)
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--fondo);color:var(--texto);font-size:15px;line-height:1.5}
+
+/* ---------- Estructura: barra lateral en escritorio ---------- */
+.topbar{background:var(--blanco);border-right:1px solid var(--borde);display:flex;flex-direction:column;gap:6px;padding:24px 16px;position:fixed;inset:0 auto 0 0;width:248px;z-index:10}
+.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;padding:0 8px 20px;letter-spacing:-.2px}
+.brand b{color:var(--primario);font-weight:700}
+.logo{width:40px;height:40px;border-radius:12px;object-fit:contain;flex:none}
+.auth-logo{width:150px;height:auto;margin-bottom:22px}
+nav{display:flex;flex-direction:column;gap:4px;flex:1}
+nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--radio-sm);color:var(--texto-2);text-decoration:none;font-weight:600;font-size:14.5px}
+nav a svg{width:20px;height:20px;flex:none}
+nav a:hover{background:var(--fondo);color:var(--texto)}
+nav a.activo{background:var(--primario-50);color:var(--primario)}
+#sesion{display:flex;align-items:center;gap:10px;padding:14px 10px 0;border-top:1px solid var(--borde);font-size:13.5px;flex-wrap:wrap}
+#sesion .nombre{font-weight:700;color:var(--texto);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.avatar-u{width:36px;height:36px;border-radius:50%;background:var(--primario-100);color:var(--primario-700);display:grid;place-items:center;font-weight:700;flex:none}
+.rol{background:var(--primario-50);color:var(--primario);border-radius:999px;padding:2px 10px;font-size:11.5px;font-weight:700;text-transform:capitalize}
+main{margin-left:248px;padding:32px 40px;max-width:1240px}
+.pie{margin-left:248px;text-align:center;color:var(--texto-3);font-size:12px;padding:8px 0 28px}
+body.sin-sesion .topbar{display:none}
+body.sin-sesion main,body.sin-sesion .pie{margin-left:0;max-width:none}
+
+/* ---------- Tipografía y bloques ---------- */
+h1{font-size:26px;font-weight:700;margin:0 0 4px;letter-spacing:-.3px}
+h2{font-size:17px;font-weight:700;margin:0 0 12px}
+.muted{color:var(--texto-2)}
+.encabezado{margin-bottom:22px}
+.card{background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio);padding:22px;margin-bottom:18px;box-shadow:var(--sombra)}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+/* ---------- Formularios y botones ---------- */
+label{display:block;font-size:13.5px;font-weight:600;margin:12px 0 6px;color:var(--texto)}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--borde);border-radius:var(--radio-sm);font:inherit;color:var(--texto);background:var(--blanco);transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primario);box-shadow:0 0 0 4px var(--primario-50)}
+input.invalido{border-color:var(--err);background:var(--err-50)}
+button{font:inherit;font-weight:600;font-size:14.5px;border:0;border-radius:var(--radio-sm);padding:12px 20px;cursor:pointer;background:var(--primario);color:#fff;box-shadow:0 1px 2px rgba(13,13,18,.08);transition:background .15s}
+button:hover{background:var(--primario-700)}
+button.sec{background:var(--blanco);color:var(--texto);border:1px solid var(--borde)}
+button.sec:hover{background:var(--fondo)}
+button.peligro{background:var(--blanco);color:var(--err);border:1px solid #f5c2cd}
+button.peligro:hover{background:var(--err-50)}
+button.mini{padding:7px 12px;font-size:13px;border-radius:10px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.error{color:var(--err);background:var(--err-50);border-radius:var(--radio-sm);padding:11px 14px;margin-top:14px;font-size:14px;font-weight:500}
+.exito{color:var(--ok);background:var(--ok-50);border-radius:var(--radio-sm);padding:11px 14px;margin-top:14px;font-size:14px;font-weight:500}
+
+/* ---------- Tablas ---------- */
+.tabla{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--borde);vertical-align:middle}
+th{color:var(--texto-3);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}
+tr:last-child td{border-bottom:0}
+.estado{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.e-Pendiente{background:var(--warn-50);color:var(--warn)}.e-Confirmada{background:var(--primario-50);color:var(--primario)}
+.e-Realizada{background:var(--ok-50);color:var(--ok)}.e-Cancelada{background:var(--fondo);color:var(--texto-3)}.e-Inasistencia{background:var(--err-50);color:var(--err)}
+
+/* ---------- Mascotas (tarjetas tipo "Patient") ---------- */
+.mascota{display:flex;gap:16px;align-items:flex-start}
+.avatar{font-size:34px;background:var(--primario-50);border-radius:50%;width:64px;height:64px;display:grid;place-items:center;flex:none;border:3px solid #fff;box-shadow:0 0 0 2px var(--primario-100)}
+.alerta{background:var(--err-50);color:#a3122f;padding:8px 12px;border-radius:10px;font-size:13.5px;margin-top:10px;font-weight:500}
+.tag{font-size:11.5px;background:var(--fondo);color:var(--texto-2);border:1px solid var(--borde);border-radius:999px;padding:2px 9px;margin-left:6px;font-weight:600;vertical-align:middle}
+
+/* ---------- Horas (chips) ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1px solid var(--borde);background:var(--blanco);color:var(--texto);border-radius:10px;padding:9px 14px;font-size:14px;cursor:pointer;font-weight:600;box-shadow:none}
+.chip:hover{border-color:var(--primario);background:var(--primario-50);color:var(--primario)}
+.chip.sel{background:var(--primario);border-color:var(--primario);color:#fff}
+
+/* ---------- Inicio de sesión ---------- */
+.auth{display:grid;grid-template-columns:1.05fr 1fr;min-height:calc(100vh - 80px);max-width:1100px;margin:0 auto;background:var(--blanco);border-radius:24px;overflow:hidden;box-shadow:var(--sombra);border:1px solid var(--borde)}
+.auth-hero{background:linear-gradient(160deg,#8b67e5 0%,#6f4fd1 100%);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.auth-hero h2{font-size:32px;line-height:1.15;margin:0 0 12px;font-weight:700}
+.auth-hero p{opacity:.9;margin:0;max-width:360px}
+.auth-hero .pets{font-size:84px;letter-spacing:8px}
+.auth-hero .burbuja{position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.auth-form{padding:56px 48px;display:flex;flex-direction:column;justify-content:center}
+.auth-form .brand{padding:0 0 28px}
+.login{max-width:420px;width:100%}
+.demo{font-size:13px;background:var(--primario-50);border-radius:var(--radio-sm);padding:12px 14px;margin-top:22px;line-height:1.7}
+.demo code{background:#fff;padding:1px 7px;border-radius:6px;font-size:12.5px}
+
+.kpi{font-size:32px;font-weight:700;color:var(--primario);letter-spacing:-.5px}
+#toast{position:fixed;right:24px;bottom:24px;background:var(--texto);color:#fff;padding:13px 18px;border-radius:var(--radio-sm);opacity:0;transform:translateY(8px);transition:.25s;max-width:340px;font-size:14px;font-weight:500;z-index:30;pointer-events:none}
+#toast.ver{opacity:1;transform:none}
+.dias{display:flex;gap:8px;flex-wrap:wrap}
+.dias label{display:flex;gap:6px;align-items:center;font-weight:600;margin:0;border:1px solid var(--borde);border-radius:10px;padding:7px 12px;font-size:13.5px;cursor:pointer}
+.dias input{width:auto;accent-color:var(--primario)}
+
+/* ---------- Tablet ---------- */
+@media (max-width:1080px){main{padding:24px}}
+
+/* ---------- Celular: barra inferior como en la app de PetCare ---------- */
+@media (max-width:760px){
+  .topbar{inset:auto 0 0 0;width:auto;flex-direction:row;padding:8px 8px calc(8px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--borde);gap:0;box-shadow:0 -4px 16px rgba(13,13,18,.05)}
+  .topbar .brand,#sesion .nombre,#sesion .rol,.avatar-u{display:none}
+  nav{flex-direction:row;justify-content:space-around}
+  nav a{flex-direction:column;gap:3px;font-size:11px;padding:6px 8px;flex:1;text-align:center}
+  nav a.activo{background:none}
+  #sesion{border:0;padding:0 4px}
+  main{margin-left:0;padding:18px 16px 96px}
+  .pie{margin-left:0;padding-bottom:90px}
+  h1{font-size:22px}
+  .auth{grid-template-columns:1fr;border-radius:0;border:0;min-height:auto}
+  .auth-hero{padding:28px 24px}.auth-hero h2{font-size:24px}.auth-hero .pets{font-size:52px}
+  .auth-form{padding:28px 20px}.auth-logo{width:110px}
+  th:nth-child(n+5),td:nth-child(n+5){display:none}
+}
