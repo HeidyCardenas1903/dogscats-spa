@@ -97,6 +97,28 @@ tr:last-child td{border-bottom:0}
 .dias label{display:flex;gap:6px;align-items:center;font-weight:600;margin:0;border:1px solid var(--borde);border-radius:10px;padding:7px 12px;font-size:13.5px;cursor:pointer}
 .dias input{width:auto;accent-color:var(--primario)}
 
+/* ---------- Landing ---------- */
+.landing{max-width:1120px;margin:0 auto}
+.landing section{margin-bottom:34px}
+.l-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.l-hero{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;background:var(--blanco);border:1px solid var(--borde);border-radius:24px;padding:40px;box-shadow:var(--sombra)}
+.l-hero h1{font-size:36px;line-height:1.15;margin:14px 0 12px}
+.l-logo{width:100%;max-width:300px;justify-self:center}
+.pill{display:inline-block;background:var(--primario-50);color:var(--primario);border-radius:999px;padding:5px 14px;font-weight:700;font-size:13px}
+.l-h2{font-size:22px;margin:0 0 14px}
+.feat h3,.rol-card h3{margin:10px 0 6px;font-size:17px}
+.feat p{margin:0;font-size:14px}
+.feat-ico{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--primario-50);font-size:22px;flex:none}
+.rol-top{display:flex;gap:14px;align-items:flex-start}
+.rol-top h3{margin-top:0}
+.cred{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:4px}
+.cred span{color:var(--texto-3);width:78px}
+.cred code{background:var(--fondo);border:1px solid var(--borde);border-radius:8px;padding:2px 8px;font-size:12.5px}
+.rol-card ol{margin:14px 0 0;padding-left:20px;font-size:14px;color:var(--texto-2)}
+.rol-card li{margin-bottom:6px}
+.aviso{background:var(--primario-50);border-color:var(--primario-100);font-size:14px}
+@media (max-width:760px){.l-hero{grid-template-columns:1fr;padding:24px}.l-hero h1{font-size:26px}.l-logo{max-width:180px;grid-row:1}}
+
 /* ---------- Tablet ---------- */
 @media (max-width:1080px){main{padding:24px}}
 
