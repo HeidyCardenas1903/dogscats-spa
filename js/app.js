@@ -36,13 +36,14 @@ function pintarCabecera() {
   $('#menu').innerHTML = usuario ? MENUS[usuario.rol].map(([h, t]) => `<a href="${h}" class="${ruta === h ? 'activo' : ''}">${ICONOS[h] || ''}<span>${t}</span></a>`).join('') : '';
   const ini = usuario ? usuario.nombre.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase() : '';
   $('#sesion').innerHTML = usuario ? `<div class="avatar-u">${esc(ini)}</div><span class="nombre">${esc(usuario.nombre)}<br><span class="rol">${usuario.rol}</span></span><button class="sec mini" id="salir">Salir</button>` : '';
-  if (usuario) $('#salir').onclick = () => { setSesion(null); location.hash = '#/login'; };
+  if (usuario) $('#salir').onclick = () => { setSesion(null); location.hash = '#/inicio'; };
 }
 
 async function router() {
-  const ruta = location.hash || '#/login';
-  if (!usuario && !['#/login', '#/registro'].includes(ruta)) { location.hash = '#/login'; return; }
-  if (usuario && ['#/login', '#/registro', ''].includes(ruta)) { location.hash = INICIO[usuario.rol]; return; }
+  const ruta = location.hash || '#/inicio';
+  if (ruta === '#/inicio') { pintarCabecera(); document.body.classList.add('sin-sesion'); return vLanding($('#app')); }
+  if (!usuario && !['#/login', '#/registro'].includes(ruta)) { location.hash = '#/inicio'; return; }
+  if (usuario && ['#/login', '#/registro'].includes(ruta)) { location.hash = INICIO[usuario.rol]; return; }
   const permitido = !usuario || MENUS[usuario.rol].some(([h]) => h === ruta);
   pintarCabecera();
   const vistas = { '#/login': vLogin, '#/registro': vRegistro, '#/mascotas': vMascotas, '#/reservar': vReservar, '#/mis-citas': vMisCitas,
@@ -63,8 +64,7 @@ function vLogin(el) {
     <label for="clave">Contraseña</label><input id="clave" type="password" autocomplete="current-password">
     <div class="acciones"><button>Ingresar</button><a href="#/registro"><button type="button" class="sec">Crear cuenta</button></a></div>
     <div id="msg"></div></form>
-    <div class="demo"><b>Usuarios de prueba</b><br>Cliente: <code>cliente@dogscats.co</code> / <code>Cliente123</code><br>
-    Groomer: <code>groomer@dogscats.co</code> / <code>Groomer123</code><br>Administrador: <code>admin@dogscats.co</code> / <code>Admin123</code></div></div></div></div>`;
+    <p class=\"muted\" style=\"margin-top:22px;font-size:13.5px\"><a href=\"#/inicio\">← Volver a la presentación del demo</a></p></div></div></div>`;
   $('#f').onsubmit = async (e) => {
     e.preventDefault();
     const c = $('#correo'), k = $('#clave');
@@ -268,6 +268,33 @@ function vReportes(el) {
     <div class="card"><h2>Servicios más solicitados</h2><table><tbody>${Object.entries(porServ).sort((a, b) => b[1] - a[1]).map(([s, n]) => `<tr><td>${esc(s)}</td><td style="width:60%"><div style="background:var(--rosa);height:12px;border-radius:6px;width:${n * 100 / Math.max(...Object.values(porServ))}%"></div></td><td>${n}</td></tr>`).join('') || '<tr><td class="muted">Sin datos</td></tr>'}</tbody></table></div>
     <div class="card"><button class="sec" id="reset">Restablecer datos de demostración</button></div>`;
   $('#reset').onclick = async () => { if (confirm('Se borrarán las citas y cambios de prueba.')) { await Store.reiniciar(); toast('Datos restablecidos'); vReportes(el); } };
+}
+
+/* ---------- Landing: presentación del demo ---------- */
+function vLanding(el) {
+  const sesion = usuario ? `<a href="${INICIO[usuario.rol]}"><button>Volver a mi panel</button></a>` : `<a href="#/login"><button>Ingresar al demo</button></a>`;
+  const feat = (i, t, d) => `<div class="card feat"><div class="feat-ico">${i}</div><h3>${t}</h3><p class="muted">${d}</p></div>`;
+  const rol = (r, icon, c, k, pasos) => `<div class="card rol-card"><div class="rol-top"><span class="feat-ico">${icon}</span><div><h3>${r}</h3>
+    <div class="cred"><span>Correo</span><code>${c}</code></div><div class="cred"><span>Contraseña</span><code>${k}</code></div></div></div>
+    <ol>${pasos.map(p => `<li>${p}</li>`).join('')}</ol></div>`;
+  el.innerHTML = `<div class="landing">
+    <header class="l-top"><div class="brand" style="padding:0"><img class="logo" src="img/logo-icono.png" alt=""> DogsCats <b>Spa</b></div>${sesion}</header>
+    <section class="l-hero"><div><span class="pill">Prototipo funcional · Demo</span><h1>Agenda en línea para el spa de tu mascota, sin citas cruzadas</h1>
+      <p class="muted">DogsCats Spa reemplaza la agenda en cuaderno y WhatsApp por reservas en línea que nunca se cruzan, y le muestra al spa las alergias y cuidados de cada mascota antes del servicio, consultándolos en PetCare.</p>
+      <div class="acciones">${sesion}<button class="sec" id="ver-guia">Ver cómo probarlo</button></div></div>
+      <img src="img/logo.png" alt="Logo DogsCats Spa" class="l-logo"></section>
+    <section><h2 class="l-h2">Qué puedes probar</h2><div class="grid">
+      ${feat('📅', 'Reservas sin cruces', 'Solo se ofrecen las horas libres. Si dos personas eligen la misma franja, el sistema rechaza la segunda.')}
+      ${feat('🐾', 'Ficha de la mascota', 'Raza, tamaño, alergias y observaciones llegan desde PetCare, con alertas visibles.')}
+      ${feat('✂️', 'Agenda del groomer', 'Cada groomer ve sus citas con la ficha de la mascota y registra el servicio realizado.')}
+      ${feat('⚙️', 'Administración', 'Catálogo de servicios, horarios, días no laborables, turnos, estados de cita y reportes.')}</div></section>
+    <section id="guia"><h2 class="l-h2">Cómo recorrer el demo</h2><p class="muted" style="margin-top:-6px">Usuarios de demostración con datos ficticios, uno por rol</p><div class="grid">
+      ${rol('Cliente', '🧑', 'cliente@dogscats.co', 'Cliente123', ['Revisa <b>Mis mascotas</b>: Luna tiene una alergia resaltada', 'En <b>Reservar</b> elige mascota, servicio, fecha y una hora libre', 'Reserva dos veces la misma hora: al ocuparse los dos groomers, esa hora desaparece', 'En <b>Mis citas</b> reprograma o cancela, y mira <b>Notificaciones</b>'])}
+      ${rol('Groomer', '✂️', 'groomer@dogscats.co', 'Groomer123', ['Abre <b>Mi agenda</b> y revisa la ficha de cada mascota', 'Escribe una observación y marca el servicio como realizado'])}
+      ${rol('Administrador', '⚙️', 'admin@dogscats.co', 'Admin123', ['En <b>Agenda</b> confirma citas o marca inasistencias', 'Crea, edita o desactiva servicios en <b>Catálogo</b>', 'Agrega un día no laborable en <b>Disponibilidad</b>', 'Mira los indicadores en <b>Reportes</b> o restablece los datos de prueba'])}</div></section>
+    <section class="card aviso"><b>Aviso:</b> prototipo académico. Todos los datos son ficticios y se guardan solo en este navegador; no se envía información a ningún servidor.</section>
+  </div>`;
+  $('#ver-guia').onclick = () => $('#guia').scrollIntoView({ behavior: 'smooth' });
 }
 
 window.addEventListener('hashchange', router);
