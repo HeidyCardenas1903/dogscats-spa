@@ -12,7 +12,7 @@ const PetCareAPI = (() => {
   // Datos ficticios (Ley 1581 de 2012: no se usan datos personales reales)
   const propietarios = [
     { id: 'PC-001', nombre: 'Laura Gómez', correo: 'cliente@dogscats.co', telefono: '300 000 0001' },
-    { id: 'PC-002', nombre: 'Andrés Ruiz', correo: 'andres@correo.co', telefono: '300 000 0002' },
+    { id: 'PC-002', nombre: 'Andrés Ruiz', correo: 'andres@example.com', telefono: '300 000 0002' },
   ];
   const mascotas = [
     { id: 'M-101', propietarioId: 'PC-001', nombre: 'Luna', especie: 'Perro', raza: 'Golden Retriever', tamano: 'Grande',
