@@ -1,75 +1,44 @@
 <p align="center"><img src="img/logo.png" alt="DogsCats Spa" width="220"></p>
 
-# DogsCats Spa · Prototipo funcional
+# DogsCats Spa
 
-Prototipo de sistema web para la gestión de citas y reservas en servicios de spa y estética de mascotas, integrado con PetCare.
-Actividad 4 · Proyecto de software · Corporación Universitaria Iberoamericana.
+Prototipo funcional de un sistema web para gestionar las citas y reservas de un spa y centro de estética para mascotas. Proyecto académico de Ingeniería de Software
 
-## Qué incluye
+## Propósito
 
-| Requisito | Módulo | Estado en el prototipo |
-|---|---|---|
-| RF01 | Autenticación y roles (cliente, groomer, administrador) | Funcional |
-| RF02 | Integración PetCare (ficha de la mascota) | Funcional con servicio simulado (mock) |
-| RF03 | Catálogo de servicios | Funcional |
-| RF04 | Disponibilidad (horario, días no laborables, turnos) | Funcional |
-| RF05 | Reservas sin dobles reservas | Funcional |
-| RF06 | Gestión de citas (confirmar, reprogramar, cancelar, inasistencia) | Funcional |
-| RF07 | Notificaciones | Simuladas (bandeja de correos dentro de la app) |
-| RF08 | Historial del servicio | Funcional (registro del groomer) |
-| RF09 | Reportes | Básico |
+Muchos spas de mascotas agendan por llamada, WhatsApp o cuaderno, lo que genera citas cruzadas, inasistencias y falta de información sobre la mascota antes del servicio. DogsCats Spa propone una agenda en línea que evita las dobles reservas y consulta la ficha de cada mascota desde la plataforma PetCare
 
-Los datos se guardan en el navegador (localStorage). En la Actividad 5 esta capa se reemplaza por la API en Node.js con PostgreSQL.
+## Funcionalidades
 
-## Usuarios de prueba
+| Módulo | Qué hace |
+|---|---|
+| Autenticación y roles | Inicio de sesión y registro con tres roles: cliente, groomer y administrador |
+| Ficha de la mascota | Muestra raza, tamaño, alergias y observaciones de cada mascota (integración simulada con PetCare) |
+| Catálogo de servicios | Crear, editar y desactivar servicios con duración, precio y tamaños de mascota |
+| Disponibilidad | Horario de atención, días no laborables y turnos de cada groomer |
+| Reservas | Solo ofrece franjas libres y no permite dobles reservas |
+| Gestión de citas | Confirmar, reprogramar, cancelar y registrar inasistencias |
+| Agenda del groomer | Citas del día con la ficha y alertas de alergias, y registro del servicio realizado |
+| Notificaciones | Confirmación y recordatorio de la cita (simulados dentro de la aplicación) |
+| Reportes | Citas, inasistencias y servicios más solicitados |
 
-| Rol | Correo | Contraseña |
-|---|---|---|
-| Cliente | cliente@dogscats.co | Cliente123 |
-| Groomer | groomer@dogscats.co | Groomer123 |
-| Administrador | admin@dogscats.co | Admin123 |
+La interfaz sigue la línea visual de PetCare y se adapta a computador, tableta y celular
 
-Todos los datos son ficticios (Ley 1581 de 2012).
-
-## Ejecutar en local con XAMPP
-
-1. Copia la carpeta `dogscats` en `C:\xampp\htdocs\`.
-2. Abre el panel de control de XAMPP y dale **Start** a **Apache**.
-3. Entra a `http://localhost/dogscats` en el navegador.
-
-## Ejecutar en local sin XAMPP
-
-No necesita instalar dependencias.
-
-1. Descarga o clona el repositorio.
-2. Abre una terminal en la carpeta del proyecto y ejecuta uno de estos comandos:
-   - Con Python: `python -m http.server 8080`
-   - O en VS Code: clic derecho sobre `index.html` → **Open with Live Server**.
-3. Entra a `http://localhost:8080` en el navegador.
-
-> Se debe abrir con un servidor local (no con doble clic sobre el archivo), porque el cifrado de contraseñas usa la API Web Crypto del navegador.
-
-## Publicar en GitHub Pages
-
-1. Crea un repositorio público en GitHub (por ejemplo `dogscats-spa`) y sube todos los archivos.
-2. En el repositorio: **Settings → Pages → Build and deployment → Source: Deploy from a branch**, rama `main`, carpeta `/ (root)` → **Save**.
-3. En uno o dos minutos queda publicado en `https://TU-USUARIO.github.io/dogscats-spa/`.
-
-## Estructura
+## Estructura del código
 
 ```
 index.html            Página principal
-css/styles.css        Estilos (diseño adaptable al celular)
+css/styles.css        Estilos y diseño adaptable
+js/app.js             Pantallas y navegación por rol
+js/store.js           Lógica de negocio: reservas, disponibilidad, catálogo y citas
 js/petcare-mock.js    Servicio simulado de la API de PetCare
-js/store.js           Lógica de negocio y datos (reservas, disponibilidad, catálogo)
-js/app.js             Interfaz y navegación por roles
-img/logo.png          Logo de DogsCats Spa
-img/logo-icono.png    Ícono del logo (menú e inicio de sesión)
-img/favicon.png       Ícono de la pestaña del navegador
+img/                  Logo, ícono y favicon
 ```
 
-Para restablecer los datos de prueba: ingresa como administrador → **Reportes** → **Restablecer datos de demostración**.
+## Tecnologías
 
-## Seguridad y uso responsable
+HTML5, CSS3 y JavaScript sin dependencias externas
 
-Prototipo académico con datos ficticios, sin rastreadores ni envío de información a servidores externos. Ver [SECURITY.md](SECURITY.md).
+## Aviso
+
+Prototipo con fines académicos. Todos los datos son ficticios y se guardan únicamente en el navegador de quien lo usa. Ver [SECURITY.md](SECURITY.md)
